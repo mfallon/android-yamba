@@ -9,4 +9,11 @@
     <string name="titleStatus">Update Status</string>
     <string name="char_count">000</string>
     
+    <string name="pref_title_username">Username</string>    
+    <string name="pref_summary_username">Your username credential</string>    
+    <string name="pref_title_password">Password</string>    
+    <string name="pref_summary_password">Your password credential</string>    
+    <string name="pref_title_apiroot">API Url for your account</string>    
+    <string name="pref_summary_apiroot">The api root URL for your twitter account</string>
+    
 </resources>
