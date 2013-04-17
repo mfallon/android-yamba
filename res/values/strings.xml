@@ -14,6 +14,8 @@
     <string name="pref_title_password">Password</string>    
     <string name="pref_summary_password">Your password credential</string>    
     <string name="pref_title_apiroot">API Url for your account</string>    
-    <string name="pref_summary_apiroot">The api root URL for your twitter account</string>
+    <string name="pref_summary_apiroot">The api root URL for your twitter account</string>    
+    <string name="act_pref_label">Preferences</string>    
+    <string name="menu_prefs">Prefs</string>
     
 </resources>

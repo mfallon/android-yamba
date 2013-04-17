@@ -25,9 +25,10 @@ public final class R {
         public static final int waterdroplets_blue=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f090004;
+        public static final int action_settings=0x7f090005;
         public static final int buttonStatus=0x7f090003;
         public static final int editTextStatus=0x7f090002;
+        public static final int itemPrefs=0x7f090004;
         public static final int labelTitle=0x7f090000;
         public static final int textCount=0x7f090001;
     }
@@ -35,14 +36,17 @@ public final class R {
         public static final int activity_status=0x7f030000;
     }
     public static final class menu {
-        public static final int status=0x7f080000;
+        public static final int menu=0x7f080000;
+        public static final int status=0x7f080001;
     }
     public static final class string {
+        public static final int act_pref_label=0x7f06000c;
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int buttonUpdate=0x7f060002;
         public static final int char_count=0x7f060005;
         public static final int hintText=0x7f060003;
+        public static final int menu_prefs=0x7f06000d;
         public static final int pref_summary_apiroot=0x7f06000b;
         public static final int pref_summary_password=0x7f060009;
         public static final int pref_summary_username=0x7f060007;
