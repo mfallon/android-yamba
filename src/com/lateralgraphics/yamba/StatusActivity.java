@@ -5,6 +5,9 @@ package com.lateralgraphics.yamba;
 import winterwell.jtwitter.Twitter;
 import winterwell.jtwitter.TwitterException;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,12 +24,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StatusActivity extends Activity implements OnClickListener, TextWatcher {
+public class StatusActivity extends Activity implements OnClickListener, TextWatcher, OnSharedPreferenceChangeListener {
 	private static final String TAG = "StatusActivity";
 	EditText editText;
 	Button updateButton;
 	Twitter twitter;
 	TextView textCount;
+	// add global field for prefs
+	SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,8 +124,15 @@ public class StatusActivity extends Activity implements OnClickListener, TextWat
         // instantiate our PostToTwitter to handle status updates
     	// we don't need to store the reference for as many threads are created
     	
-    	String status = this.editText.getText().toString();
-        new PostToTwitter().execute(status);
+    	// update to use new getTwitter method
+    	try {
+    		getTwitter().setStatus(this.editText.getText().toString());
+    	} catch(TwitterException e) {
+    		Log.d(TAG, "Twitter setStatus failed: " + e);
+    	}
+    	// p.95 - no longer need this I think
+    	//String status = this.editText.getText().toString();
+        //new PostToTwitter().execute(status);
     	Log.d(TAG,"onClicked");
     }
 
@@ -143,8 +155,36 @@ public class StatusActivity extends Activity implements OnClickListener, TextWat
 			startActivity(new Intent(this,PrefsActivity.class));
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
     
-    
+    /*
+     * With preferences activity implemented, now lets delegate the creation of a twitter object to a private method
+     */
+	private Twitter getTwitter() {
+		// with this field 'twitter', only create if null
+		if(twitter == null) {
+			// now let's get values from the prefs activity added
+			String username, password, apiRoot;
+			// now we access our prefs pane (need to have reference - i.e. have to implement
+			username = prefs.getString("username","");
+			password = prefs.getString("password","");
+			apiRoot = prefs.getString("apiRoot","http://yamba.marakana.com/api");
+			// create twitter
+			twitter = new Twitter(username,password);
+			twitter.setAPIRootUrl(apiRoot);
+		}
+		return twitter;
+	}
+	// implement method for OnSharedPreferenceChange listener
+
+	/* (non-Javadoc)
+	 * @see android.content.SharedPreferences.OnSharedPreferenceChangeListener#onSharedPreferenceChanged(android.content.SharedPreferences, java.lang.String)
+	 */
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		// TODO Auto-generated method stub
+		
+	}
 }
